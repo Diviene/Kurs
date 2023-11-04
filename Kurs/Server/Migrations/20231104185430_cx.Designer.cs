@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Kurs.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231104181853_cx")]
+    [Migration("20231104185430_cx")]
     partial class cx
     {
         /// <inheritdoc />

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using Kurs.Server.Data;
 using Kurs.Client.Pages;
 using Microsoft.AspNetCore.Authorization;
+using Kurs.Shared.Models;
 
 namespace Kurs.Server.Controllers
 {
@@ -26,7 +27,7 @@ namespace Kurs.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Hotels>>> GetAllHotels(CancellationToken cancellationToken = default)
+        public async Task<ActionResult<List<Hotel>>> GetAllHotels(CancellationToken cancellationToken = default)
         {
             var list = await _context.Hotels.ToListAsync(cancellationToken);
 
