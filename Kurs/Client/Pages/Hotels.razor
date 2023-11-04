@@ -1,0 +1,33 @@
+﻿@page "/Hotels"
+@inject HttpClient Http
+
+<h3>Hotels</h3>
+
+@if (hotelss.Count <= 0)
+
+{
+    <span>Loading Hotels</span>
+
+}
+else
+{
+    @foreach (var hotel in hotelss)
+    {
+    <li>@hotel.HotelAddress</li>
+    }
+
+}
+
+@code {
+    List<Hotel> hotelss = new List<Hotel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var hotels = await Http.GetFromJsonAsync<List<Hotel>>("api/Hotel");
+
+        if (hotels != null)
+        {
+            hotels = hotelss;
+        }
+    }
+}
