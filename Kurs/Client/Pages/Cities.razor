@@ -1,0 +1,37 @@
+﻿@page "/Cities"
+@inject HttpClient Http
+@inject IHttpClientFactory HttpClientFactory
+
+
+<h3>Cities</h3>
+
+@if (cities == null)
+
+{
+    <span>Loading Cities</span>
+
+}
+else
+{
+    @foreach (var hotel in cities)
+    {
+        <li>@hotel.CityName</li>
+    }
+
+}
+
+
+@code {
+    List<City> cities = new List<City>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var http = HttpClientFactory.CreateClient("Kurs.AnonymousAPI");
+        var hotels = await http.GetFromJsonAsync<List<City>>("api/City");
+
+        if (hotels != null)
+        {
+            cities = hotels;
+        }
+    }
+}

@@ -291,36 +291,36 @@ namespace Kurs.Server.Migrations
                 name: "Hotels",
                 columns: table => new
                 {
-                    HotelId = table.Column<int>(type: "integer", nullable: false)
+                    hotelId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    HotelName = table.Column<string>(type: "text", nullable: true),
-                    HotelAddress = table.Column<string>(type: "text", nullable: true),
-                    HotelPostcode = table.Column<int>(type: "integer", nullable: false),
-                    HotelUrl = table.Column<string>(type: "text", nullable: true),
-                    IsPet = table.Column<bool>(type: "boolean", nullable: true),
-                    HotelDescription = table.Column<string>(type: "text", nullable: true),
-                    CityId = table.Column<int>(type: "integer", nullable: false),
-                    HotelChainId = table.Column<int>(type: "integer", nullable: false),
-                    HotelRatingId = table.Column<int>(type: "integer", nullable: false)
+                    hotelName = table.Column<string>(type: "text", nullable: true),
+                    hotelAddress = table.Column<string>(type: "text", nullable: true),
+                    hotelPostcode = table.Column<int>(type: "integer", nullable: false),
+                    hotelUrl = table.Column<string>(type: "text", nullable: true),
+                    isPet = table.Column<bool>(type: "boolean", nullable: true),
+                    hotelDescription = table.Column<string>(type: "text", nullable: true),
+                    cityId = table.Column<int>(type: "integer", nullable: false),
+                    hotelChainId = table.Column<int>(type: "integer", nullable: false),
+                    hotelRatingId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Hotels", x => x.HotelId);
+                    table.PrimaryKey("PK_Hotels", x => x.hotelId);
                     table.ForeignKey(
-                        name: "FK_Hotels_Cities_CityId",
-                        column: x => x.CityId,
+                        name: "FK_Hotels_Cities_cityId",
+                        column: x => x.cityId,
                         principalTable: "Cities",
                         principalColumn: "CityId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Hotels_HotelChains_HotelChainId",
-                        column: x => x.HotelChainId,
+                        name: "FK_Hotels_HotelChains_hotelChainId",
+                        column: x => x.hotelChainId,
                         principalTable: "HotelChains",
                         principalColumn: "HotelChainId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Hotels_HotelRatings_HotelRatingId",
-                        column: x => x.HotelRatingId,
+                        name: "FK_Hotels_HotelRatings_hotelRatingId",
+                        column: x => x.hotelRatingId,
                         principalTable: "HotelRatings",
                         principalColumn: "HotelRatingId",
                         onDelete: ReferentialAction.Cascade);
@@ -381,7 +381,7 @@ namespace Kurs.Server.Migrations
                         name: "FK_HotelRooms_Hotels_HotelId",
                         column: x => x.HotelId,
                         principalTable: "Hotels",
-                        principalColumn: "HotelId",
+                        principalColumn: "hotelId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -444,19 +444,19 @@ namespace Kurs.Server.Migrations
                 column: "HotelRoomTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Hotels_CityId",
+                name: "IX_Hotels_cityId",
                 table: "Hotels",
-                column: "CityId");
+                column: "cityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Hotels_HotelChainId",
+                name: "IX_Hotels_hotelChainId",
                 table: "Hotels",
-                column: "HotelChainId");
+                column: "hotelChainId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Hotels_HotelRatingId",
+                name: "IX_Hotels_hotelRatingId",
                 table: "Hotels",
-                column: "HotelRatingId");
+                column: "hotelRatingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Keys_Use",

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,30 +9,31 @@ namespace Kurs.Shared.Models
 {
     public class Hotel
     {
-        public int HotelId { get; set; }
+        [Key]
+        public int hotelId { get; set; }
 
-        public string? HotelName { get; set; }
+        public string? hotelName { get; set; }
 
-        public string? HotelAddress { get; set; }
+        public string? hotelAddress { get; set; }
 
-        public int HotelPostcode { get; set; }
+        public int hotelPostcode { get; set; }
 
-        public string? HotelUrl { get; set; }
+        public string? hotelUrl { get; set; }
 
-        public bool? IsPet { get; set; }
+        public bool? isPet { get; set; }
 
-        public string? HotelDescription { get; set; }
+        public string? hotelDescription { get; set; }
 
-        public int CityId { get; set; }
+        public int cityId { get; set; }
 
-        public City? City { get; set; }
+        public City? city { get; set; }
 
-        public int HotelChainId { get; set; }
+        public int hotelChainId { get; set; }
 
-        public HotelChain? HotelChain { get; set; }
+        public HotelChain? hotelChain { get; set; }
 
-        public int HotelRatingId { get; set; }
+        public int hotelRatingId { get; set; }
 
-        public HotelRating? HotelRating { get; set; }
+        public HotelRating? hotelRating { get; set; }
     }
 }

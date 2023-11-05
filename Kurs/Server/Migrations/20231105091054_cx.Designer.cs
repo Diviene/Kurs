@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Kurs.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231104185430_cx")]
+    [Migration("20231105091054_cx")]
     partial class cx
     {
         /// <inheritdoc />
@@ -279,46 +279,46 @@ namespace Kurs.Server.Migrations
 
             modelBuilder.Entity("Kurs.Shared.Models.Hotel", b =>
                 {
-                    b.Property<int>("HotelId")
+                    b.Property<int>("hotelId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("HotelId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("hotelId"));
 
-                    b.Property<int>("CityId")
+                    b.Property<int>("cityId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("HotelAddress")
+                    b.Property<string>("hotelAddress")
                         .HasColumnType("text");
 
-                    b.Property<int>("HotelChainId")
+                    b.Property<int>("hotelChainId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("HotelDescription")
+                    b.Property<string>("hotelDescription")
                         .HasColumnType("text");
 
-                    b.Property<string>("HotelName")
+                    b.Property<string>("hotelName")
                         .HasColumnType("text");
 
-                    b.Property<int>("HotelPostcode")
+                    b.Property<int>("hotelPostcode")
                         .HasColumnType("integer");
 
-                    b.Property<int>("HotelRatingId")
+                    b.Property<int>("hotelRatingId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("HotelUrl")
+                    b.Property<string>("hotelUrl")
                         .HasColumnType("text");
 
-                    b.Property<bool?>("IsPet")
+                    b.Property<bool?>("isPet")
                         .HasColumnType("boolean");
 
-                    b.HasKey("HotelId");
+                    b.HasKey("hotelId");
 
-                    b.HasIndex("CityId");
+                    b.HasIndex("cityId");
 
-                    b.HasIndex("HotelChainId");
+                    b.HasIndex("hotelChainId");
 
-                    b.HasIndex("HotelRatingId");
+                    b.HasIndex("hotelRatingId");
 
                     b.ToTable("Hotels");
                 });
@@ -585,29 +585,29 @@ namespace Kurs.Server.Migrations
 
             modelBuilder.Entity("Kurs.Shared.Models.Hotel", b =>
                 {
-                    b.HasOne("Kurs.Shared.Models.City", "City")
+                    b.HasOne("Kurs.Shared.Models.City", "city")
                         .WithMany("Hotels")
-                        .HasForeignKey("CityId")
+                        .HasForeignKey("cityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Kurs.Shared.Models.HotelChain", "HotelChain")
+                    b.HasOne("Kurs.Shared.Models.HotelChain", "hotelChain")
                         .WithMany("Hotels")
-                        .HasForeignKey("HotelChainId")
+                        .HasForeignKey("hotelChainId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Kurs.Shared.Models.HotelRating", "HotelRating")
+                    b.HasOne("Kurs.Shared.Models.HotelRating", "hotelRating")
                         .WithMany("Hotels")
-                        .HasForeignKey("HotelRatingId")
+                        .HasForeignKey("hotelRatingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("City");
+                    b.Navigation("city");
 
-                    b.Navigation("HotelChain");
+                    b.Navigation("hotelChain");
 
-                    b.Navigation("HotelRating");
+                    b.Navigation("hotelRating");
                 });
 
             modelBuilder.Entity("Kurs.Shared.Models.HotelRoom", b =>

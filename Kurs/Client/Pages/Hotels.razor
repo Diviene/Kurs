@@ -1,19 +1,24 @@
 ﻿@page "/Hotels"
 @inject HttpClient Http
+@inject IHttpClientFactory HttpClientFactory
+@attribute [Authorize(Roles = "Admin")]
 
-<h3>Hotels</h3>
+<h3>
+Отель
+</h3>
 
-@if (hotelss.Count <= 0)
+
+@if (hotelss.Count <=0)
 
 {
-    <span>Loading Hotels</span>
+    <span>Грузим</span>
 
 }
 else
 {
     @foreach (var hotel in hotelss)
     {
-    <li>@hotel.HotelAddress</li>
+    <li>@hotel.hotelId - @hotel.hotelName</li>
     }
 
 }
@@ -23,11 +28,12 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        var hotels = await Http.GetFromJsonAsync<List<Hotel>>("api/Hotel");
+        var http = HttpClientFactory.CreateClient("Kurs.AnonymousAPI");
+        var hotels = await http.GetFromJsonAsync<List<Hotel>>("api/Hotel");
 
         if (hotels != null)
         {
-            hotels = hotelss;
+            hotelss = hotels;
         }
     }
 }

@@ -25,13 +25,11 @@ namespace Kurs.Server.Controllers
         {
             _context = context;
         }
-
         [HttpGet]
-        public async Task<ActionResult<List<Hotel>>> GetAllHotels(CancellationToken cancellationToken = default)
+        public async Task<ActionResult<List<Hotel>>> GetAllHotels()
         {
-            var list = await _context.Hotels.ToListAsync(cancellationToken);
-
-            return Ok(list);
+            var list = await _context.Hotels.ToListAsync();
+            return new JsonResult(list);
         }
     }
 }
