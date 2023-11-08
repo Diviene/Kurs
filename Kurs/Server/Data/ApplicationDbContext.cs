@@ -18,7 +18,7 @@ namespace Kurs.Server.Data
         }
 
         public DbSet<City>? Cities { get; set; }
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<HotelChain>? HotelChains { get; set; }
         public DbSet<HotelRating> HotelRatings { get; set; }

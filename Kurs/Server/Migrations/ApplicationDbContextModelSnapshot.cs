@@ -17,7 +17,7 @@ namespace Kurs.Server.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -243,44 +243,13 @@ namespace Kurs.Server.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("Kurs.Shared.Models.Customer", b =>
-                {
-                    b.Property<int>("CustomerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CustomerId"));
-
-                    b.Property<bool>("CustomerGender")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("CustomerName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("CustomerPatronymic")
-                        .HasColumnType("text");
-
-                    b.Property<string>("CustomerPhone")
-                        .HasColumnType("text");
-
-                    b.Property<string>("CustomerSurname")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("CustomerId");
-
-                    b.ToTable("Customers");
-                });
-
             modelBuilder.Entity("Kurs.Shared.Models.Hotel", b =>
                 {
-                    b.Property<int>("hotelId")
+                    b.Property<int>("HotelId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("hotelId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("HotelId"));
 
                     b.Property<int>("cityId")
                         .HasColumnType("integer");
@@ -309,7 +278,7 @@ namespace Kurs.Server.Migrations
                     b.Property<bool?>("isPet")
                         .HasColumnType("boolean");
 
-                    b.HasKey("hotelId");
+                    b.HasKey("HotelId");
 
                     b.HasIndex("cityId");
 
@@ -435,13 +404,47 @@ namespace Kurs.Server.Migrations
                     b.Property<int>("NumberOfPeople")
                         .HasColumnType("integer");
 
-                    b.HasKey("ReservationId");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("CustomerId");
+                    b.HasKey("ReservationId");
 
                     b.HasIndex("HotelRoomTypeId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Reservations");
+                });
+
+            modelBuilder.Entity("Kurs.Shared.Models.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
+
+                    b.Property<bool>("CustomerGender")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("CustomerName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CustomerPatronymic")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CustomerPhone")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CustomerSurname")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -628,21 +631,19 @@ namespace Kurs.Server.Migrations
 
             modelBuilder.Entity("Kurs.Shared.Models.Reservation", b =>
                 {
-                    b.HasOne("Kurs.Shared.Models.Customer", "Customer")
-                        .WithMany("Reservations")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Kurs.Shared.Models.HotelRoomType", "HotelRoomType")
                         .WithMany("Reservations")
                         .HasForeignKey("HotelRoomTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.HasOne("Kurs.Shared.Models.User", "User")
+                        .WithMany("Reservations")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("HotelRoomType");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -701,11 +702,6 @@ namespace Kurs.Server.Migrations
                     b.Navigation("Hotels");
                 });
 
-            modelBuilder.Entity("Kurs.Shared.Models.Customer", b =>
-                {
-                    b.Navigation("Reservations");
-                });
-
             modelBuilder.Entity("Kurs.Shared.Models.HotelChain", b =>
                 {
                     b.Navigation("Hotels");
@@ -720,6 +716,11 @@ namespace Kurs.Server.Migrations
                 {
                     b.Navigation("HotelRooms");
 
+                    b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("Kurs.Shared.Models.User", b =>
+                {
                     b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618

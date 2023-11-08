@@ -1,11 +1,11 @@
-﻿@page "/Customers"
+﻿@page "/Users"
 @inject HttpClient Http
 @inject IHttpClientFactory HttpClientFactory
 @attribute [Authorize(Roles = "Admin")]
 
 <h3>Пользователи</h3>
 
-@if (cust.Count <= 0)
+@if (hotelss.Count <= 0)
 
 {
     <span>Пользователей нет!!!!!!</span>
@@ -13,24 +13,24 @@
 }
 else
 {
-    @foreach (var customerss in cust)
+    @foreach (var customerss in hotelss)
     {
-        @* <li>@customerss.cust - @customerss.</li> *@
+        <li>@customerss.FullName</li>
     }
 
 }
 
 @code {
-    List<Customer> cust = new List<Customer>();
+    List<User> hotelss = new List<User>();
 
     protected override async Task OnInitializedAsync()
     {
         var http = HttpClientFactory.CreateClient("Kurs.AnonymousAPI");
-        var customers = await http.GetFromJsonAsync<List<Customer>>("api/Customer");
+        var hotels = await http.GetFromJsonAsync<List<User>>("api/User");
 
-        if (customers != null)
+        if (hotels != null)
         {
-            cust = customers;
+            hotelss = hotels;
         }
     }
 }

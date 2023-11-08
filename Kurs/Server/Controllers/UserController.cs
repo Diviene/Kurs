@@ -9,19 +9,19 @@ namespace Kurs.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class UserController : ControllerBase
     {
 
         private readonly ApplicationDbContext _context;
 
-        public CustomerController(ApplicationDbContext context)
+        public UserController(ApplicationDbContext context)
         {
             _context = context;
         }
         [HttpGet]
-        public async Task<ActionResult<List<Customer>>> GetAllUsers()
+        public async Task<ActionResult<List<User>>>GetAllUsers()
         {
-            var list = await _context.Customers.ToListAsync();
+            var list = await _context.Users.ToListAsync();
             return new JsonResult(list);
         }
     }

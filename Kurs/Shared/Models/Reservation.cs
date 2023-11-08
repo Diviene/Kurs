@@ -22,7 +22,7 @@ namespace Kurs.Shared.Models
 
         public int CustomerId { get; set; }
 
-        public Customer? Customer { get; set; }
+        public User? User { get; set; }
 
         public int HotelRoomTypeId { get; set; }
 

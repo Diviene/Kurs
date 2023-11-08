@@ -65,24 +65,6 @@ namespace Kurs.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
-                columns: table => new
-                {
-                    CustomerId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CustomerSurname = table.Column<string>(type: "text", nullable: true),
-                    CustomerName = table.Column<string>(type: "text", nullable: true),
-                    CustomerPatronymic = table.Column<string>(type: "text", nullable: true),
-                    DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CustomerGender = table.Column<bool>(type: "boolean", nullable: false),
-                    CustomerPhone = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DeviceCodes",
                 columns: table => new
                 {
@@ -179,6 +161,24 @@ namespace Kurs.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PersistedGrants", x => x.Key);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CustomerSurname = table.Column<string>(type: "text", nullable: true),
+                    CustomerName = table.Column<string>(type: "text", nullable: true),
+                    CustomerPatronymic = table.Column<string>(type: "text", nullable: true),
+                    DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CustomerGender = table.Column<bool>(type: "boolean", nullable: false),
+                    CustomerPhone = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -291,7 +291,7 @@ namespace Kurs.Server.Migrations
                 name: "Hotels",
                 columns: table => new
                 {
-                    hotelId = table.Column<int>(type: "integer", nullable: false)
+                    HotelId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     hotelName = table.Column<string>(type: "text", nullable: true),
                     hotelAddress = table.Column<string>(type: "text", nullable: true),
@@ -305,7 +305,7 @@ namespace Kurs.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Hotels", x => x.hotelId);
+                    table.PrimaryKey("PK_Hotels", x => x.HotelId);
                     table.ForeignKey(
                         name: "FK_Hotels_Cities_cityId",
                         column: x => x.cityId,
@@ -337,23 +337,23 @@ namespace Kurs.Server.Migrations
                     NumberOfPeople = table.Column<int>(type: "integer", nullable: false),
                     FullPrice = table.Column<int>(type: "integer", nullable: false),
                     CustomerId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: true),
                     HotelRoomTypeId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reservations", x => x.ReservationId);
                     table.ForeignKey(
-                        name: "FK_Reservations_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Reservations_HotelRoomTypes_HotelRoomTypeId",
                         column: x => x.HotelRoomTypeId,
                         principalTable: "HotelRoomTypes",
                         principalColumn: "HotelRoomTypeId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId");
                 });
 
             migrationBuilder.CreateTable(
@@ -381,7 +381,7 @@ namespace Kurs.Server.Migrations
                         name: "FK_HotelRooms_Hotels_HotelId",
                         column: x => x.HotelId,
                         principalTable: "Hotels",
-                        principalColumn: "hotelId",
+                        principalColumn: "HotelId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -484,14 +484,14 @@ namespace Kurs.Server.Migrations
                 columns: new[] { "SubjectId", "SessionId", "Type" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_CustomerId",
-                table: "Reservations",
-                column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Reservations_HotelRoomTypeId",
                 table: "Reservations",
                 column: "HotelRoomTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_UserId",
+                table: "Reservations",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -537,10 +537,10 @@ namespace Kurs.Server.Migrations
                 name: "Hotels");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "HotelRoomTypes");
 
             migrationBuilder.DropTable(
-                name: "HotelRoomTypes");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Cities");
