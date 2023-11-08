@@ -13,9 +13,9 @@
 }
 else
 {
-    @foreach (var hotel in cities)
+    @foreach (var city in cities)
     {
-        <li>@hotel.CityName</li>
+        <li>@city.CityName</li>
     }
 
 }
@@ -27,11 +27,11 @@ else
     protected override async Task OnInitializedAsync()
     {
         var http = HttpClientFactory.CreateClient("Kurs.AnonymousAPI");
-        var hotels = await http.GetFromJsonAsync<List<City>>("api/City");
+        var city = await http.GetFromJsonAsync<List<City>>("api/City");
 
-        if (hotels != null)
+        if (city != null)
         {
-            cities = hotels;
+            cities = city;
         }
     }
 }

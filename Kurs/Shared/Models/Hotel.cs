@@ -9,8 +9,7 @@ namespace Kurs.Shared.Models
 {
     public class Hotel
     {
-        [Key]
-        public int hotelId { get; set; }
+        public int HotelId { get; set; }
 
         public string? hotelName { get; set; }
 

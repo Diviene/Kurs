@@ -5,6 +5,5 @@ namespace Kurs.Server.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        List<Customer> Customers { get; set; } = new List<Customer>();
     }
 }

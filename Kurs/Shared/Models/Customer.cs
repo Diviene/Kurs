@@ -19,5 +19,14 @@ namespace Kurs.Shared.Models
         public string? CustomerPhone { get; set; }
 
         public ICollection<Reservation>? Reservations { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return CustomerSurname + " " +CustomerName + " " + CustomerPatronymic;
+
+            }
+         }
     }
 }

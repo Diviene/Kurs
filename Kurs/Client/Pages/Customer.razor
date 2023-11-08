@@ -1,0 +1,36 @@
+﻿@page "/Customers"
+@inject HttpClient Http
+@inject IHttpClientFactory HttpClientFactory
+@attribute [Authorize(Roles = "Admin")]
+
+<h3>Пользователи</h3>
+
+@if (cust.Count <= 0)
+
+{
+    <span>Пользователей нет!!!!!!</span>
+
+}
+else
+{
+    @foreach (var customerss in cust)
+    {
+        @* <li>@customerss.cust - @customerss.</li> *@
+    }
+
+}
+
+@code {
+    List<Customer> cust = new List<Customer>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var http = HttpClientFactory.CreateClient("Kurs.AnonymousAPI");
+        var customers = await http.GetFromJsonAsync<List<Customer>>("api/Customer");
+
+        if (customers != null)
+        {
+            cust = customers;
+        }
+    }
+}
