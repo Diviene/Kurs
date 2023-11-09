@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Kurs.Shared.Models;
+using Kurs.Server.Data;
 
 namespace Kurs.Server.Areas.Identity.Pages.Account
 {
@@ -30,13 +32,17 @@ namespace Kurs.Server.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context
+            )
+            
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +50,8 @@ namespace Kurs.Server.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
+
         }
 
         /// <summary>
@@ -114,6 +122,13 @@ namespace Kurs.Server.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                var cust = new User
+                {
+                    CustomerName = Input.Email,
+                    CustomerSurname = Input.Password
+                };
+                _context.Add(cust);
+                await _context.SaveChangesAsync();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

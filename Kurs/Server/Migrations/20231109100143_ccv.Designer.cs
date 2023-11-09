@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Kurs.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231108103100_cx")]
-    partial class cx
+    [Migration("20231109100143_ccv")]
+    partial class ccv
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

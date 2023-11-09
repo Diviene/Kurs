@@ -1,4 +1,5 @@
 using Kurs.Client;
+using Kurs.Client.Services.UserService;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -16,6 +17,7 @@ builder.Services.AddHttpClient("Kurs.ServerAPI", client => client.BaseAddress = 
 
 // Supply HttpClient instances that include access tokens when making requests to the server project
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Kurs.ServerAPI"));
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddApiAuthorization();
 

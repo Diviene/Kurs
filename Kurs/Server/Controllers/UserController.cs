@@ -1,4 +1,5 @@
-﻿using Kurs.Server.Data;
+﻿using Kurs.Client.Pages;
+using Kurs.Server.Data;
 using Kurs.Shared.Models;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Http;
@@ -19,10 +20,26 @@ namespace Kurs.Server.Controllers
             _context = context;
         }
         [HttpGet]
-        public async Task<ActionResult<List<User>>>GetAllUsers()
+        public async Task<ActionResult<List<User>>> GetUsers()
         {
             var list = await _context.Users.ToListAsync();
             return new JsonResult(list);
+        }
+
+        [HttpGet]
+        [Route("{UserId}")]
+
+        public async Task<ActionResult<User>> GetUserById(int UserId)
+        {
+            var user = _context.Users.FirstOrDefault(c => c.UserId == UserId);
+            if (user == null)
+            {
+                return NotFound("Пользователь не найден");
+            }
+            else 
+            { 
+                return Ok(user);
+            }
         }
     }
 }

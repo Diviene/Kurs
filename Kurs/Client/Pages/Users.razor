@@ -1,36 +1,37 @@
 ﻿@page "/Users"
 @inject HttpClient Http
 @inject IHttpClientFactory HttpClientFactory
+@inject IUserService UserService;
 @attribute [Authorize(Roles = "Admin")]
 
 <h3>Пользователи</h3>
 
-@if (hotelss.Count <= 0)
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                User Id
+            </th>
+            <th>
+                User Name
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var users in UserService.Users)
+        {
+            <tr>
+                <td>@users.UserId</td>
+                <td>@users.FullName</td>
+            </tr>
+        }
+    </tbody>
 
-{
-    <span>Пользователей нет!!!!!!</span>
-
-}
-else
-{
-    @foreach (var customerss in hotelss)
-    {
-        <li>@customerss.FullName</li>
-    }
-
-}
+</table>
 
 @code {
-    List<User> hotelss = new List<User>();
-
     protected override async Task OnInitializedAsync()
     {
-        var http = HttpClientFactory.CreateClient("Kurs.AnonymousAPI");
-        var hotels = await http.GetFromJsonAsync<List<User>>("api/User");
-
-        if (hotels != null)
-        {
-            hotelss = hotels;
-        }
+        await UserService.GetUsers();
     }
 }
