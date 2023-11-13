@@ -1,8 +1,17 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject IJSRuntime JSRuntime
+@inject NavigationManager Navigation
 
 
 @code{
+
+    private void BeginLogOut()
+    {
+        Navigation.NavigateToLogout("authentication/logout");
+    }
+
     private async Task ShowSideNavAndModal()
     {
         await JSRuntime.InvokeVoidAsync("showSideNavAndModal");
@@ -11,6 +20,24 @@
     private async Task HideSideNavAndModal()
     {
         await JSRuntime.InvokeVoidAsync("hideSideNavAndModal");
+    }
+    private async Task GoToHeader()
+    {
+        await JSRuntime.InvokeVoidAsync("scrollIntoHeader", "header");
+    }
+
+    private async Task GoToServices()
+    {
+        await JSRuntime.InvokeVoidAsync("scrollIntoServices", "services");
+    }
+    private async Task GoToRoom()
+    {
+        await JSRuntime.InvokeVoidAsync("scrollIntoRooms", "room");
+    }
+
+    private async Task GoToCustomers()
+    {
+        await JSRuntime.InvokeVoidAsync("scrollIntoCustomers", "customers");
     }
 }
 
@@ -38,7 +65,7 @@
         </div>
 
         <div class="head-bottom flex">
-            <h2>УЮТНОЕ МЕСТЕЧКО ДЛЯ ТОГО, ЧТОБЫ ПЕРЕНОЧЕВАТЬ</h2>
+            <h2>УЮТНОЕ МЕСТЕЧКО, ЧТОБЫ ПЕРЕНОЧЕВАТЬ</h2>
             <p>Выбирая нас - вы уважаете себя</p>
             <button type="button" class="head-btn">Забронируйте прямо сейчас</button>
         </div>
@@ -50,14 +77,25 @@
             <i class="fas fa-times"></i>
         </span>
 
+
         <ul class="navbar">
-            <li><a href="#header">Главная</a></li>
-            <li><a href="#services">Услуги</a></li>
-            <li><a href="#rooms">Виды комнат</a></li>
-            <li><a href="#customers">Клиенты</a></li>
+            <li><a @onclick="GoToHeader">Главная</a></li>
+            <li><a @onclick="GoToServices">Услуги</a></li>
+            <li><a @onclick="GoToRoom">Виды комнат</a></li>
+            <li><a @onclick="GoToCustomers">Клиенты</a></li>
         </ul>
-        <button class="btn sign-up">Авторизация</button>
-        <button class="btn log-in">Регистрация</button>
+
+        <AuthorizeView>
+            <Authorized>
+                <a href="authentication/profile">Hello, @context.User.Identity?.Name!</a>
+                <button class="nav-link btn btn-link" @onclick="BeginLogOut">Log out</button>
+            </Authorized>
+            <NotAuthorized>
+                <a class="btn sign-up" href="authentication/login">Авторизация</a>
+                <a class="btn log-in" href="authentication/register">Регистрация</a>
+            </NotAuthorized>
+        </AuthorizeView>
+
     </div>
     <!-- end of side navbar -->
     <!-- fullscreen modal -->

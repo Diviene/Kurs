@@ -2,17 +2,32 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject NavigationManager Navigation
 
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>HOTEL GP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="images/logo.png" type="image/png">
+</head>
+<html>
+    <body>
+
+<div>
 <AuthorizeView>
     <Authorized>
-        <a href="authentication/profile">Hello, @context.User.Identity?.Name!</a>
-        <button class="nav-link btn btn-link" @onclick="BeginLogOut">Log out</button>
+                <a class="TextUpper" href="authentication/profile">Привет, @context.User.Identity?.Name!</a>
+                <button class="TextUpper" @onclick="BeginLogOut">Выход</button>
     </Authorized>
     <NotAuthorized>
-        <a href="authentication/register">Register</a>
-        <a href="authentication/login">Log in</a>
+                <a class="TextUpper" href="authentication/register">Зарегистрироваться</a>
+                <a class="TextUpper" href="authentication/login">Авторизоваться</a>
     </NotAuthorized>
 </AuthorizeView>
-
+</div>
+</body>
+</html>
 @code{
     private void BeginLogOut()
     {
