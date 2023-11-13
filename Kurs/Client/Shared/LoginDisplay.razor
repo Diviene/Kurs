@@ -17,12 +17,12 @@
 <div>
 <AuthorizeView>
     <Authorized>
-                <a class="TextUpper" href="authentication/profile">Привет, @context.User.Identity?.Name!</a>
-                <button class="TextUpper" @onclick="BeginLogOut">Выход</button>
+                <a hidden class="TextUpper" href="authentication/profile">Привет, @context.User.Identity?.Name!</a>
+                <button hidden class="TextUpper" @onclick="BeginLogOut">Выход</button>
     </Authorized>
     <NotAuthorized>
-                <a class="TextUpper" href="authentication/register">Зарегистрироваться</a>
-                <a class="TextUpper" href="authentication/login">Авторизоваться</a>
+                <a hidden class="TextUpper" href="authentication/register">Зарегистрироваться</a>
+                <a hidden class="TextUpper" href="authentication/login">Авторизоваться</a>
     </NotAuthorized>
 </AuthorizeView>
 </div>
