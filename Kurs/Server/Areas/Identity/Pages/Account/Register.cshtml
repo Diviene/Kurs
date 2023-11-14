@@ -14,20 +14,37 @@
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
+                <label asp-for="Input.Email">Электронная почта</label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
+                <label asp-for="Input.Password">Пароль</label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <label asp-for="Input.ConfirmPassword">Подтвердите пароль</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <div class="form-floating mb-3">
+                <input id="dateofbirth" asp-for="Input.DateOfBirth" class="form-control" autocomplete="dateOfBirth" aria-required="true" placeholder="password" />
+                <label asp-for="Input.DateOfBirth">Дата рождения</label>
+                <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <select asp-for="Input.Gender" class="form-control" asp-items="Model.GenderOptions" autocomplete="genderoptions" aria-required="true">
+                    <option value=""></option>
+                </select>
+                <label asp-for="Input.Gender">Выберите пол</label>
+                <span asp-validation-for="Input.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input id="dateofbirth" asp-for="Input.Phone" class="form-control" autocomplete="phone" aria-required="true" placeholder="password" />
+                <label asp-for="Input.Phone">Телефон</label>
+                <span asp-validation-for="Input.Phone" class="text-danger"></span>
+            </div>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Зарегистрироваться</button>
         </form>
     </div>
     <div class="col-md-6 col-md-offset-2">
@@ -61,6 +78,8 @@
         </section>
     </div>
 </div>
+
+<script src="js/dateOfBirth.js"></script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

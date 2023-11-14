@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Kurs.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class czx : Migration
+    public partial class cx : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,6 +31,9 @@ namespace Kurs.Server.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
+                    CustomerSurName = table.Column<string>(type: "text", nullable: true),
+                    CustomerName = table.Column<string>(type: "text", nullable: true),
+                    CustomerPatronymic = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -173,7 +176,7 @@ namespace Kurs.Server.Migrations
                     CustomerName = table.Column<string>(type: "text", nullable: true),
                     CustomerPatronymic = table.Column<string>(type: "text", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CustomerGender = table.Column<bool>(type: "boolean", nullable: false),
+                    CustomerGender = table.Column<string>(type: "text", nullable: true),
                     CustomerPhone = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>

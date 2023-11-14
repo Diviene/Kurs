@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Kurs.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231109100143_ccv")]
-    partial class ccv
+    [Migration("20231114114818_cx")]
+    partial class cx
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -176,6 +176,15 @@ namespace Kurs.Server.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CustomerName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CustomerPatronymic")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CustomerSurName")
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
@@ -427,8 +436,8 @@ namespace Kurs.Server.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
 
-                    b.Property<bool>("CustomerGender")
-                        .HasColumnType("boolean");
+                    b.Property<string>("CustomerGender")
+                        .HasColumnType("text");
 
                     b.Property<string>("CustomerName")
                         .HasColumnType("text");

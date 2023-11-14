@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,11 +20,14 @@ namespace Kurs.Shared.Models
 
             public string? CustomerPatronymic { get; set; }
 
+            [DataType(DataType.Date)]
             public DateTime? DateOfBirth { get; set; }
 
-            public bool CustomerGender { get; set; }
+            public string? CustomerGender { get; set; }
+            
 
             public string? CustomerPhone { get; set; }
+
 
             public ICollection<Reservation>? Reservations { get; set; }
 

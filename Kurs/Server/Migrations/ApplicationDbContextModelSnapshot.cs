@@ -175,6 +175,15 @@ namespace Kurs.Server.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
+                    b.Property<string>("CustomerName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CustomerPatronymic")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CustomerSurName")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -424,8 +433,8 @@ namespace Kurs.Server.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
 
-                    b.Property<bool>("CustomerGender")
-                        .HasColumnType("boolean");
+                    b.Property<string>("CustomerGender")
+                        .HasColumnType("text");
 
                     b.Property<string>("CustomerName")
                         .HasColumnType("text");
