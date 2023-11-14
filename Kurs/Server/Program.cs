@@ -114,5 +114,6 @@ using (var scope = app.Services.CreateScope())
         await userManager.AddToRoleAsync(user, "Admin");
     }
 }
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-    app.Run();
+app.Run();

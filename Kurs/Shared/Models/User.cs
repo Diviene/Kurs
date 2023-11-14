@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace Kurs.Shared.Models
             public string? CustomerPatronymic { get; set; }
 
             [DataType(DataType.Date)]
+            [Column(TypeName = "timestamp without time zone")]
             public DateTime? DateOfBirth { get; set; }
 
             public string? CustomerGender { get; set; }

@@ -28,6 +28,21 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
+                <input asp-for="Input.Surname" class="form-control" autocomplete="surname" aria-required="true" placeholder="surname" />
+                <label asp-for="Input.Surname">Фамилия</label>
+                <span asp-validation-for="Input.Surname" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Name" class="form-control" autocomplete="Name" aria-required="true" placeholder="Name" />
+                <label asp-for="Input.Name">Имя</label>
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Patronymic" class="form-control" autocomplete="Patronymic" aria-required="true" placeholder="Patronymic" />
+                <label asp-for="Input.Patronymic">Отчество</label>
+                <span asp-validation-for="Input.Patronymic" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
                 <input id="dateofbirth" asp-for="Input.DateOfBirth" class="form-control" autocomplete="dateOfBirth" aria-required="true" placeholder="password" />
                 <label asp-for="Input.DateOfBirth">Дата рождения</label>
                 <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>

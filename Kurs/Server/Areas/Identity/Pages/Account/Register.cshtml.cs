@@ -24,6 +24,7 @@ using Kurs.Server.Data;
 using NuGet.Protocol.Plugins;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Drawing;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Kurs.Server.Areas.Identity.Pages.Account
 {
@@ -122,15 +123,17 @@ namespace Kurs.Server.Areas.Identity.Pages.Account
             [Display(Name = "Отчество")]
             public string Patronymic { get; set; }
 
+            [MinimumAge(18)]
+            [Column(TypeName = "timestamp without time zone")]
             [DataType(DataType.Date)]
-            [Display(Name = "Отчество")]
-            public string DateOfBirth { get; set; }
+            [Display(Name = "Дата рождения")]
+            public DateTime? DateOfBirth { get; set; }
 
             [BindProperty]
             [Display(Name = "Пол")]
             public string Gender { get; set; }
 
-            [RegularExpression(@"^\d{3} d{3}-d{2}-d{2}$", ErrorMessage = "Номер телефона должен быть в формате 999 999-99-99")]
+            [RegularExpression(@"^\+7\(\d{3}-\d{3}-\d{2}-\d{2}\)$", ErrorMessage = "Номер телефона должен быть в формате +7(999-999-99-99)")]
             [Display(Name = "Номер телефона")]
             public string PhoneNumber { get; set; } 
 
@@ -179,6 +182,10 @@ namespace Kurs.Server.Areas.Identity.Pages.Account
                 user.CustomerSurName = Input.Surname;
                 user.CustomerName = Input.Name;
                 user.CustomerPatronymic = Input.Patronymic;
+                user.DateOfBirth = Input.DateOfBirth;
+                user.Gender = Input.Gender;
+                user.PhoneNumber = Input.PhoneNumber;
+                
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
