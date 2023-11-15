@@ -59,16 +59,19 @@
                 <label asp-for="Input.PhoneNumber">Телефон</label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3">
-                <input id="passportseries" asp-for="Input.PassportSeries" class="form-control" autocomplete="passportseries" aria-required="true" placeholder="passportseries" />
+            <div class="row g-2">
+                <div class="col-md">
                 <label asp-for="Input.PassportSeries">Серия паспорта</label>
+                <input id="passportseries" asp-for="Input.PassportSeries" class="form-control" autocomplete="passportseries" aria-required="true" placeholder="Серия" />
                 <span asp-validation-for="Input.PassportSeries" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input id="passportnumber" asp-for="Input.PassportNumber" class="form-control" autocomplete="passportnumber" aria-required="true" placeholder="passportnumber" />
-                <label asp-for="Input.PassportNumber">Номер паспорта</label>
+                </div>
+                <div class="col-md">
+                    <label asp-for="Input.PassportNumber">Номер паспорта</label>
+                <input id="passportnumber" asp-for="Input.PassportNumber" class="form-control" autocomplete="passportnumber" aria-required="true" placeholder="Номер" />
                 <span asp-validation-for="Input.PassportNumber" class="text-danger"></span>
+                </div>
             </div>
+            <br>
             <div class="form-floating mb-3">
                 <input id="address1" asp-for="Input.AddressLine1" class="form-control" autocomplete="addressline1" aria-required="true" placeholder="address1" />
                 <label asp-for="Input.AddressLine1">Линия адреса 1</label>
