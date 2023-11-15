@@ -114,12 +114,15 @@ namespace Kurs.Server.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "Пароли не совпадают.")]
             public string ConfirmPassword { get; set; }
 
+            [RegularExpression(@"\D*", ErrorMessage = "Фамилия не должна содержать в себе чисел")]
             [Display(Name = "Фамилия")]
             public string Surname { get; set; }
 
+            [RegularExpression(@"\D*", ErrorMessage = "Имя не должно содержать в себе чисел")]
             [Display(Name = "Имя")]
             public string Name { get; set; }
 
+            [RegularExpression(@"\D*", ErrorMessage = "Отчество не должно содержать в себе чисел")]
             [Display(Name = "Отчество")]
             public string Patronymic { get; set; }
 
@@ -135,7 +138,19 @@ namespace Kurs.Server.Areas.Identity.Pages.Account
 
             [RegularExpression(@"^\+7\(\d{3}-\d{3}-\d{2}-\d{2}\)$", ErrorMessage = "Номер телефона должен быть в формате +7(999-999-99-99)")]
             [Display(Name = "Номер телефона")]
-            public string PhoneNumber { get; set; } 
+            public string PhoneNumber { get; set; }
+
+            [RegularExpression(@"\d{4}", ErrorMessage ="Номер паспорта должен состоять из 4 цифр")]
+            [Display(Name = "Серия паспорта")]
+            public int PassportSeries { get; set; }
+
+            [RegularExpression(@"\d{6}", ErrorMessage = "Серия паспорта должна состоять из 6 цифр")]
+            [Display(Name = "Номер паспорта")]
+            public int PassportNumber { get; set; }
+            [Display(Name = "1 линия адреса")]
+            public string AddressLine1 { get; set; }
+            [Display(Name = "2 линия адреса")]
+            public string AddressLine2 { get; set; }
 
 
         }
@@ -156,7 +171,8 @@ namespace Kurs.Server.Areas.Identity.Pages.Account
             GenderOptions = new List<SelectListItem>
                 {
                 new SelectListItem{ Value = "Мужской", Text = "Мужской"},
-                new SelectListItem{ Value = "Женский", Text = "Женский"}
+                new SelectListItem{ Value = "Женский", Text = "Женский"},
+                new SelectListItem{ Value = "Другой... ^ ^", Text = "Другой... ^ ^"}
                 };
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             ReturnUrl = returnUrl;
@@ -168,9 +184,10 @@ namespace Kurs.Server.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             GenderOptions = new List<SelectListItem>
-                {
+               {
                 new SelectListItem{ Value = "Мужской", Text = "Мужской"},
-                new SelectListItem{ Value = "Женский", Text = "Женский"}
+                new SelectListItem{ Value = "Женский", Text = "Женский"},
+                new SelectListItem{ Value = "Другой... ^ ^", Text = "Другой... ^ ^"}
                 };
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -185,6 +202,11 @@ namespace Kurs.Server.Areas.Identity.Pages.Account
                 user.DateOfBirth = Input.DateOfBirth;
                 user.Gender = Input.Gender;
                 user.PhoneNumber = Input.PhoneNumber;
+                user.PassportSeries = Input.PassportSeries;
+                user.PassportNumber = Input.PassportNumber;
+                user.AddressLine1 = Input.AddressLine1;
+                user.AddressLine2  = Input.AddressLine2;
+                
                 
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);

@@ -22,5 +22,32 @@ namespace Kurs.Server.Models
         public string? Gender { get; set; }
 
         public int Phone { get; set; }
+
+        public int PassportSeries { get; set; }
+
+        public int PassportNumber { get; set; }
+
+        public string? AddressLine1 { get; set; }
+
+        public string? AddressLine2 { get; set; }
+
+        public int? Passport
+        {
+
+            get
+            {
+                return int.Parse(PassportSeries.ToString() + " " +
+                         PassportNumber.ToString()); ;
+            }
+        }
+
+        public string? Address
+        {
+            get 
+            { 
+            return AddressLine1 + " " + AddressLine2;
+            }
+        }
+
     }
 }
